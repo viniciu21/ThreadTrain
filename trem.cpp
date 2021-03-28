@@ -53,9 +53,6 @@ void Trem::run()
                     mutex3->lock();
                     y += 10;
                 }
-//                else if (y == 180){
-//                    y += 10;
-//                }
                 else
                 {
                     y += 10;
@@ -106,9 +103,6 @@ void Trem::run()
                     semaphoreRegion457->acquire();
                     y += 10;
                 }
-//                else if (y == 180){
-//                    y+= 10;
-//                }
                 else
                 {
                     y += 10;
@@ -233,9 +227,6 @@ void Trem::run()
                     x += 10;
                 }
             else if (x == 450 && y < 330){
-//                if(y == 230){
-//                    y += 10;
-//                } else
                 if (y == 240) {
                     mutex4->unlock();
                     semaphoreRegion457->release();
@@ -331,9 +322,6 @@ void Trem::run()
                     mutex5->lock();
                     y -= 10;
                 }
-//                else if (y == 240) {
-//                    y -= 10;
-//                }
                 else {
                     y -= 10;
                 }
