@@ -39,7 +39,6 @@ void Trem::run()
         case 1: //Trem 1
             if (y == 70 && x < 310)
                 if (x == 280){
-                    semaphoreRegion134->acquire();
                     x += 10;
                 }
                 else if (x == 290)
@@ -57,6 +56,11 @@ void Trem::run()
                     mutex3->lock();
                     y += 10;
                 }
+                else if (y == 180){
+                    cout << "trem 1 encruzilhada 134 lock" << endl;
+                    semaphoreRegion134->acquire();
+                    y += 10;
+                }
                 else
                 {
                     y += 10;
@@ -70,6 +74,7 @@ void Trem::run()
                 else if (x == 160)
                 {
                     mutex3->unlock();
+                    cout << "trem 1 encruzilhada 134 unlock" << endl;
                     semaphoreRegion134->release();
                     x -= 10;
                 }
@@ -88,7 +93,12 @@ void Trem::run()
                     mutex1->unlock();
                     x += 10;
                 }
+//                else if (x == 540) {
+//                    semaphoreRegion457->acquire();
+//                    x += 10;
+//                }
                 else if (x == 550){
+                    cout << "trem 2 encruzilhada 256 lock" << endl;
                     semaphoreRegion256->acquire();
                     x += 10;
                 }
@@ -104,10 +114,13 @@ void Trem::run()
             else if (x == 580 && y < 210){
                 if(y == 190){
                     mutex5->lock();
+
                     mutex4->unlock();
-                    semaphoreRegion256->release();
-//                    semaphoreRegion457->release();
+                    cout << "trem 2 encruzilhada 457 lock" << endl;
+                    semaphoreRegion457->acquire();
                     y += 10;
+                }else if (y == 180){
+                    y+= 10;
                 }
                 else
                 {
@@ -129,6 +142,7 @@ void Trem::run()
                     mutex5->unlock();
                     x-=10;
                 }else if (x == 480){
+                    cout << "trem 2 encruzilhada 134 lock" << endl;
                      semaphoreRegion134->acquire();
                      x -= 10;
                 }
@@ -143,11 +157,17 @@ void Trem::run()
                 }
             else {
                 if(x == 310 && y == 190){
+                    cout << "trem 2 encruzilhada 134 unlock" << endl;
                     semaphoreRegion134->release();
                      y -= 10;
                 }
                 else if (y == 180){
-//                    semaphoreRegion457->acquire();
+                    cout << "trem 2 encruzilhada 256 unlock" << endl;
+                    semaphoreRegion256->release();
+                    y -= 10;
+                }else if (y == 170) {
+                    cout << "trem 2 encruzilhada 456 unlock" << endl;
+                    semaphoreRegion457->release();
                     y -= 10;
                 }
                 else {
@@ -162,6 +182,8 @@ void Trem::run()
                 if (x == 600)
                 {
                     mutex2->unlock();
+                    cout << "trem 3 encruzilhada 256 unlock" << endl;
+                    semaphoreRegion256->release();
                     x += 10;
                 }
                 else
@@ -170,20 +192,20 @@ void Trem::run()
                 }
             }
             else if (x == 850 && y < 210)
-            {
-                if(y == 190){
-                    semaphoreRegion256->acquire();
-                    y += 10;
-                }else{
-                    y += 10;
-                }
+            {               
+                y += 10;
             }
             else if (x > 580 && y == 210)
             {
                 if (x == 600)
                 {
                     mutex2->lock();
-                    semaphoreRegion256->release();
+
+                    x -= 10;
+                }
+                else if (x == 750){
+                    cout << "trem 3 encruzilhada 256 lock" << endl;
+                    semaphoreRegion256->acquire();
                     x -= 10;
                 }
                 else if (x == 740)
@@ -215,8 +237,8 @@ void Trem::run()
                 if (x == 430)
                 {
                     mutex7->lock();
+                    cout << "trem 4 encruzilhada 134 unlock" << endl;
                     semaphoreRegion134->release();
-//                    semaphoreRegion457->release();
                     x += 10;
                 }
                 else if (x == 330)
@@ -225,7 +247,6 @@ void Trem::run()
                     x += 10;
                 }else if (x == 290){
                     mutex4->lock();
-//                    semaphoreRegion457->acquire();
                     x += 10;
                 }
                 else
@@ -233,7 +254,16 @@ void Trem::run()
                     x += 10;
                 }
             else if (x == 450 && y < 330){
-                   y += 10;
+                if(y == 230){
+                    y += 10;
+                } else if (y == 240) {
+                    mutex4->unlock();
+                    cout << "trem 4 encruzilhada 457 unlock" << endl;
+                    semaphoreRegion457->release();
+                    y += 10;
+                }else {
+                    y += 10;
+                }
              }
             else if (x > 180 && y == 330)
                 if (x == 430)
@@ -242,6 +272,7 @@ void Trem::run()
                     x -= 10;
                 }
                 else if (x == 200){
+                    cout << "trem 4 encruzilhada 134 lock" << endl;
                     semaphoreRegion134->acquire();
                     x -= 10;
                 }
@@ -253,9 +284,12 @@ void Trem::run()
                 if (x == 180 && y == 230)
                 {
                     mutex3->lock();
-                    mutex4->unlock();
                     y -= 10;
-                 }
+                }else if (y == 240){
+                    cout << "trem 4 encruzilhada 457 lock" << endl;
+                    semaphoreRegion457->acquire();
+                    y -= 10;
+                }
                 else
                 {
                     y -= 10;
@@ -274,13 +308,10 @@ void Trem::run()
                 else if (x == 560)
                 {
                     mutex6->lock();
-                    semaphoreRegion256->acquire();
                     x += 10;
                 }
                 else if (x == 600){
                     mutex5->unlock();
-                    semaphoreRegion256->release();
-//                    semaphoreRegion457->release();
                     x+= 10;
                 }
                 else
@@ -292,6 +323,10 @@ void Trem::run()
                 if (y == 230)
                 {
                     mutex6->unlock();
+                    cout << "trem 5 encruzilhada  256 unlock" << endl;
+                    semaphoreRegion256->release();
+                    cout << "trem 5 encruzilhada 457 unlock" << endl;
+                    semaphoreRegion457->release();
                     y += 10;
                 }
                 else
@@ -299,8 +334,14 @@ void Trem::run()
                     y += 10;
                 }
             else if (x > 450 && y == 330)
-                if (x == 490){
-//                    semaphoreRegion457->acquire();
+                if (x == 480){
+                    cout << "trem 5 encruzilhada 457 lock" << endl;
+                    semaphoreRegion457->acquire();
+                    x -= 10;
+                }
+                else if (x == 490){
+                    cout << "trem 5 encruzilhada 256 lock" << endl;
+                    semaphoreRegion256->acquire();
                      x -= 10;
                 }
                 else if (x == 470)
@@ -339,7 +380,3 @@ void Trem::mudarVelocidade(int velocidade) {
         this->velocidade = MAX_SPEED - velocidade;
     }
 }
-
-
-
-
