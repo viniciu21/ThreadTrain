@@ -87,25 +87,25 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_speed_trem1_valueChanged(int value)
 {
-    trem1->mudarVelocidade(value);
+    trem1->changeSpeed(value);
 }
 
 void MainWindow::on_speed_trem2_valueChanged(int value)
 {
-    trem2->mudarVelocidade(value);
+    trem2->changeSpeed(value);
 }
 
 void MainWindow::on_speed_trem3_valueChanged(int value)
 {
-    trem3->mudarVelocidade(value);
+    trem3->changeSpeed(value);
 }
 
 void MainWindow::on_speed_trem4_valueChanged(int value)
 {
-    trem4->mudarVelocidade(value);
+    trem4->changeSpeed(value);
 }
 
 void MainWindow::on_speed_trem5_valueChanged(int value)
 {
-    trem5->mudarVelocidade(value);
+    trem5->changeSpeed(value);
 }
