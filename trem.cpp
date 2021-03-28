@@ -9,6 +9,7 @@ QMutex *mutex1 = new QMutex();
 QMutex *mutex2 = new QMutex();
 QMutex *mutex3 = new QMutex();
 QMutex *mutex4 = new QMutex();
+QMutex *mutex5 = new QMutex();
 QMutex *mutex6 = new QMutex();
 QMutex *mutex7 = new QMutex();
 
@@ -26,7 +27,6 @@ Trem::Trem(int ID, int x, int y, int velocidade)
 //Função a ser executada após executar trem->START
 void Trem::run()
 {
-
     while (true)
     {
         switch (ID)
@@ -87,8 +87,16 @@ void Trem::run()
                 {
                     x += 10;
                 }
-            else if (x == 580 && y < 210)
-                y += 10;
+            else if (x == 580 && y < 210){
+                if(y == 190){
+                    mutex5->lock();
+                    y += 10;
+                }
+                else
+                {
+                    y += 10;
+                }
+            }
             else if (x > 310 && y == 210)
                 if (x == 330)
                 {
@@ -99,6 +107,10 @@ void Trem::run()
                 {
                     mutex2->unlock();
                     x -= 10;
+                }
+                else if (x == 430){
+                    mutex5->unlock();
+                    x-=10;
                 }
                 else
                 {
@@ -208,6 +220,10 @@ void Trem::run()
                     mutex6->lock();
                     x += 10;
                 }
+                else if (x == 600){
+                    mutex5->unlock();
+                    x+= 10;
+                }
                 else
                 {
                     x += 10;
@@ -233,8 +249,14 @@ void Trem::run()
                 {
                     x -= 10;
                 }
-            else
-                y -= 10;
+            else if (x == 450 && y > 210){
+                if(y == 230){
+                    mutex5->lock();
+                    y -= 10;
+                }else {
+                    y -= 10;
+                }
+            }
             emit updateGUI(ID, x, y); //Emite um sinal
             break;
         default:
@@ -243,23 +265,18 @@ void Trem::run()
         msleep(this->velocidade);
     }
 }
-void Trem::mudarVelocidade(int velocidade)
-{
-    if (velocidade == 0)
-    {
-        this->velocidade = MAX_SPEED - velocidade;
+void Trem::mudarVelocidade(int velocidade) {
+    if(velocidade == 0) {
         this->terminate();
     }
-    else
-    {
-        if ((velocidade > 0 && this->velocidade == 120 && !this->isRunning() && this->isFinished()))
-        {
+    else {
+        if(this->isFinished()){
             this->start();
-            this->velocidade = MAX_SPEED - velocidade;
         }
-        else
-        {
-            this->velocidade = MAX_SPEED - velocidade;
-        }
+        this->velocidade = MAX_SPEED - velocidade;
     }
 }
+
+
+
+
